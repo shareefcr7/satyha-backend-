@@ -1,10 +1,10 @@
 app.use(cors({
- origin:[
-   "http://localhost:3000",
-   "http://localhost:3001",
-   "https://lux-varo-admin.vercel.app",
-   "https://shop.lexvaro.in"
- ],
- methods:["GET","POST","PUT","DELETE","PATCH"],
- credentials:true
-}))
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+
+    "https://clear-glass-frontend.vercel.app",
+    "https://clear-glass-frontend-lfez.vercel.app"
+  ],
+  credentials: true
+}));

@@ -19,6 +19,11 @@ const cloudinary = require('../../config/cloudinary');
 // });
 router.get('/', async (req, res) => {
   try {
+    // Disable caching - always fetch fresh data
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+
     const limit = parseInt(req.query.limit) || 10;
     // support both ?page= and ?skip= from different clients
     const skip = req.query.skip !== undefined
@@ -47,6 +52,11 @@ router.get('/', async (req, res) => {
 // GET product by slug (public storefront) - MUST come before /:id
 router.get('/item/:slug', async (req, res) => {
   try {
+    // Disable caching - always fetch fresh data
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+
     const product = await Product.findOne({ slug: req.params.slug, isActive: true })
       .populate('category', 'name')
       .populate('subcategory', 'name');
@@ -307,6 +317,11 @@ router.post('/image/delete', auth, role.check(ROLES.Admin, ROLES.Merchant, ROLES
 // GET single product by id (admin) - MUST be last to avoid shadowing other /:id routes
 router.get('/:id',async (req, res) => {
   try {
+    // Disable caching - always fetch fresh data
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+
     const product = await Product.findById(req.params.id)
       .populate('category', 'name')
       .populate('subcategory', 'name');
