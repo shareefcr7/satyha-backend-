@@ -15,12 +15,25 @@ const corsOptions = {
     "http://127.0.0.1:3001",
     "https://clear-glass-frontend.vercel.app",
     "https://clear-glass-frontend-lfez.vercel.app",
-    "https://clear-glass-admin.vercel.app"
+    "https://clear-glass-admin.vercel.app",
+    "https://clear-glass-admin-oxsm.vercel.app"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  optionsSuccessStatus: 200
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "Cache-Control",
+    "Pragma",
+    "Expires"
+  ],
+  exposedHeaders: [
+    "Cache-Control",
+    "Pragma",
+    "Expires"
+  ],
+  optionsSuccessStatus: 200,
+  maxAge: 86400
 };
 
 // ✅ Apply CORS middleware BEFORE routes
