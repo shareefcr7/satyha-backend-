@@ -9,6 +9,12 @@ const cloudinary = require('../../config/cloudinary');
 // GET all banners (public or admin)
 router.get('/', async (req, res) => {
   try {
+    // AGGRESSIVE NO-CACHE HEADERS
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+    res.set('Surrogate-Control', 'no-store');
+    
     const banners = await Banner.find({});
     res.status(200).json({ banners });
   } catch (error) {
