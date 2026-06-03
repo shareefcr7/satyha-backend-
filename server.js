@@ -6,18 +6,26 @@ const passport = require("passport");
 
 const app = express();
 
-// ✅ CORS Configuration - FIX for banner/category API calls
+// ✅ CORS Configuration
 const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:3001",
-    "https://clear-glass-frontend.vercel.app",
-    "https://clear-glass-frontend-lfez.vercel.app",
-    "https://clear-glass-admin.vercel.app",
-    "https://clear-glass-admin-oxsm.vercel.app"
-  ],
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "http://127.0.0.1:3000",
+      "http://127.0.0.1:3001",
+      "https://clear-glass-frontend.vercel.app",
+      "https://clear-glass-frontend-lfez.vercel.app",
+      "https://clear-glass-admin.vercel.app",
+      "https://clear-glass-admin-oxsm.vercel.app"
+    ];
+    
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all in production
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: [
@@ -28,6 +36,8 @@ const corsOptions = {
     "Expires"
   ],
   exposedHeaders: [
+    "Content-Type",
+    "Authorization",
     "Cache-Control",
     "Pragma",
     "Expires"
