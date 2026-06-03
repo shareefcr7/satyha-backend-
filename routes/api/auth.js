@@ -9,10 +9,8 @@ const auth = require('../../middleware/auth');
 
 // Bring in Models & Helpers
 const User = require('../../models/user');
-const mailchimp = require('../../services/mailchimp');
-const mailgun = require('../../services/mailgun');
 const keys = require('../../config/keys');
-const { EMAIL_PROVIDER, JWT_COOKIE } = require('../../constants');
+const { EMAIL_PROVIDER } = require('../../constants');
 
 const secret = 'mySuperSecretKey123!@#';
 const tokenLife = '7d';
