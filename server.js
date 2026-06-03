@@ -85,98 +85,89 @@ app.get("/seed-admin", async (req, res) => {
   }
 });
 
-// Seed data endpoint (creates sample products and banners)
+// Seed data endpoint (for initial setup)
 app.get("/seed-data", async (req, res) => {
   try {
     const Product = require('./models/product');
     const Banner = require('./models/banner');
-    const Category = require('./models/category');
     
-    // Create categories
-    let glassCategory = await Category.findOne({ name: 'Clear Glass' });
-    if (!glassCategory) {
-      glassCategory = await Category.create({
-        name: 'Clear Glass',
-        description: 'Premium car wash products',
-        isActive: true
-      });
-    }
+    // Delete all existing products
+    await Product.deleteMany({});
     
-    // Create sample products with Cloudinary images
-    const sampleProducts = [
+    // Seed products with all required fields
+    const products = [
       {
-        name: 'Premium Car Wash Polish',
-        shortDescription: 'Professional grade car polish',
-        description: 'High-quality car wash polish for professional results',
-        category: glassCategory._id,
-        mainImage: 'https://res.cloudinary.com/dqzajyxfn/image/upload/v1/samples/shoes.jpg',
-        gallery: [],
-        mrpPrice: 1200,
-        offerAmount: 200,
-        totalStock: 50,
-        isActive: true
-      },
-      {
-        name: 'Car Wax Shine',
-        shortDescription: 'Long-lasting car wax',
-        description: 'Advanced formula for superior shine and protection',
-        category: glassCategory._id,
-        mainImage: 'https://res.cloudinary.com/dqzajyxfn/image/upload/v1/samples/kitchen-tools.jpg',
-        gallery: [],
+        name: "Premium Glass Set",
+        shortDescription: "High-quality transparent glass set",
+        description: "Premium quality transparent glass set with perfect clarity and finish. Ideal for everyday use.",
         mrpPrice: 1500,
         offerAmount: 300,
-        totalStock: 30,
+        totalStock: 50,
+        mainImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000000/clear-glass/glass1.jpg",
+        gallery: ["https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000000/clear-glass/glass1_2.jpg"],
         isActive: true
       },
       {
-        name: 'Glass Cleaner Spray',
-        shortDescription: 'Crystal clear windows',
-        description: 'Streak-free glass cleaning solution',
-        category: glassCategory._id,
-        mainImage: 'https://res.cloudinary.com/dqzajyxfn/image/upload/v1/samples/coffee.jpg',
-        gallery: [],
-        mrpPrice: 500,
-        offerAmount: 100,
-        totalStock: 100,
+        name: "Crystal Water Glasses",
+        shortDescription: "Elegant crystal water glasses",
+        description: "Elegant crystal clear water glasses with modern design. Perfect for dining and entertaining.",
+        mrpPrice: 2000,
+        offerAmount: 400,
+        totalStock: 40,
+        mainImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000001/clear-glass/glass2.jpg",
+        gallery: ["https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000001/clear-glass/glass2_2.jpg"],
         isActive: true
-      }
-    ];
-    
-    // Insert products if they don't exist
-    let productCount = 0;
-    for (const product of sampleProducts) {
-      const exists = await Product.findOne({ name: product.name });
-      if (!exists) {
-        await Product.create(product);
-        productCount++;
-      }
-    }
-    
-    // Create sample banners
-    const sampleBanners = [
+      },
       {
-        desktopImage: 'https://res.cloudinary.com/dqzajyxfn/image/upload/v1/samples/bike.jpg',
-        mobileImage: 'https://res.cloudinary.com/dqzajyxfn/image/upload/v1/samples/bike.jpg',
+        name: "Juice Glass Collection",
+        shortDescription: "Durable juice glass collection",
+        description: "Durable and stylish juice glass collection. Available in various sizes and colors.",
+        mrpPrice: 1200,
+        offerAmount: 200,
+        totalStock: 60,
+        mainImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000002/clear-glass/glass3.jpg",
+        gallery: ["https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000002/clear-glass/glass3_2.jpg"],
         isActive: true
       }
     ];
     
-    // Insert banners if they don't exist
-    let bannerCount = 0;
-    const existingBanners = await Banner.countDocuments();
-    if (existingBanners === 0) {
-      for (const banner of sampleBanners) {
-        await Banner.create(banner);
-        bannerCount++;
+    await Product.insertMany(products);
+    console.log('✅ Products seeded successfully');
+    
+    // Delete all existing banners
+    await Banner.deleteMany({});
+    
+    // Seed banners
+    const banners = [
+      {
+        desktopImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000010/clear-glass/banner1_desktop.jpg",
+        mobileImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000010/clear-glass/banner1_mobile.jpg",
+        desktopFit: "cover",
+        desktopPosition: "center",
+        mobileFit: "cover",
+        mobilePosition: "center",
+        isActive: true
+      },
+      {
+        desktopImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000011/clear-glass/banner2_desktop.jpg",
+        mobileImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000011/clear-glass/banner2_mobile.jpg",
+        desktopFit: "cover",
+        desktopPosition: "center",
+        mobileFit: "cover",
+        mobilePosition: "center",
+        isActive: true
       }
-    }
+    ];
+    
+    await Banner.insertMany(banners);
+    console.log('✅ Banners seeded successfully');
     
     res.json({
       success: true,
-      message: 'Seed data created',
-      created: {
-        products: productCount,
-        banners: bannerCount
+      message: "Data seeded successfully",
+      data: {
+        productsCreated: products.length,
+        bannersCreated: banners.length
       }
     });
   } catch (error) {
@@ -184,6 +175,8 @@ app.get("/seed-data", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// Health check with diagnostics
 app.get("/health", async (req, res) => {
   try {
     // Check MongoDB

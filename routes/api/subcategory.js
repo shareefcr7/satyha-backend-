@@ -8,11 +8,6 @@ const Subcategory = require('../../models/subcategory');
 // GET all subcategories
 router.get('/', async (req, res) => {
   try {
-    // Disable caching - always fetch fresh data
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.set('Pragma', 'no-cache');
-    res.set('Expires', '0');
-
     const subcategories = await Subcategory.find();
     res.status(200).json({ subcategories });
   } catch (error) {
@@ -23,11 +18,6 @@ router.get('/', async (req, res) => {
 // GET single subcategory
 router.get('/:id', async (req, res) => {
   try {
-    // Disable caching - always fetch fresh data
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.set('Pragma', 'no-cache');
-    res.set('Expires', '0');
-
     const subcategory = await Subcategory.findById(req.params.id);
     if (!subcategory) return res.status(404).json({ message: 'No subcategory found.' });
     res.status(200).json({ subcategory });

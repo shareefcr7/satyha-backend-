@@ -87,11 +87,6 @@ router.post('/add', auth, role.check(ROLES.Admin), async (req, res) => {
 // fetch store categories api
 router.get('/list', async (req, res) => {
   try {
-    // Disable caching - always fetch fresh data
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.set('Pragma', 'no-cache');
-    res.set('Expires', '0');
-
     const categories = await Category.find({ isActive: true });
     res.status(200).json({
       categories
@@ -106,11 +101,6 @@ router.get('/list', async (req, res) => {
 // fetch categories api
 router.get('/', async (req, res) => {
   try {
-    // Disable caching - always fetch fresh data
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.set('Pragma', 'no-cache');
-    res.set('Expires', '0');
-
     const categories = await Category.find({});
     res.status(200).json({
       categories
@@ -125,11 +115,6 @@ router.get('/', async (req, res) => {
 // fetch category api
 router.get('/:id', async (req, res) => {
   try {
-    // Disable caching - always fetch fresh data
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.set('Pragma', 'no-cache');
-    res.set('Expires', '0');
-
     const categoryId = req.params.id;
 
     const categoryDoc = await Category.findOne({ _id: categoryId }).populate({

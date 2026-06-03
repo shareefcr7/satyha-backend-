@@ -19,11 +19,6 @@ const cloudinary = require('../../config/cloudinary');
 // });
 router.get('/', async (req, res) => {
   try {
-    // Disable caching - always fetch fresh data
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.set('Pragma', 'no-cache');
-    res.set('Expires', '0');
-
     const limit = parseInt(req.query.limit) || 10;
     // support both ?page= and ?skip= from different clients
     const skip = req.query.skip !== undefined
