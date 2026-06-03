@@ -6,28 +6,37 @@ const passport = require('passport');
 
 const app = express();
 
-// CORS Configuration
+// CORS Configuration - Simple and Reliable
 const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:3001",
-    "https://clear-glass-frontend.vercel.app",
-    "https://clear-glass-admin.vercel.app",
-    "https://clear-glass-admin-oxsm.vercel.app"
-  ],
+  origin: function (origin, callback) {
+    // Allowed origins
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:3001',
+      'https://satyha-frontend.vercel.app',
+      'https://satyha-admin.vercel.app',
+    ];
+
+    // Allow if origin is in list or no origin (like mobile apps)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS policy violation'));
+    }
+  },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "Cache-Control", "Pragma"],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Middleware
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(passport.initialize());
 
@@ -229,11 +238,6 @@ app.use("/api/banner", require("./routes/api/banner"));
 
 // Error handling
 app.use((err, req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cache-Control, Pragma');
-  
   console.error("Error:", err);
   res.status(err.status || 500).json({
     error: err.message || "Internal server error"
