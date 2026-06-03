@@ -104,8 +104,8 @@ app.get("/seed-data", async (req, res) => {
         offerAmount: 300,
         sellingPrice: 1200,
         totalStock: 50,
-        mainImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000000/clear-glass/glass1.jpg",
-        gallery: ["https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000000/clear-glass/glass1_2.jpg"],
+        mainImage: "https://images.unsplash.com/photo-1622197980942-a06db25d5fe6?w=400&h=400&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400&h=400&fit=crop"],
         isActive: true
       },
       {
@@ -116,8 +116,8 @@ app.get("/seed-data", async (req, res) => {
         offerAmount: 400,
         sellingPrice: 1600,
         totalStock: 40,
-        mainImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000001/clear-glass/glass2.jpg",
-        gallery: ["https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000001/clear-glass/glass2_2.jpg"],
+        mainImage: "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=400&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=400&fit=crop"],
         isActive: true
       },
       {
@@ -128,8 +128,8 @@ app.get("/seed-data", async (req, res) => {
         offerAmount: 200,
         sellingPrice: 1000,
         totalStock: 60,
-        mainImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000002/clear-glass/glass3.jpg",
-        gallery: ["https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000002/clear-glass/glass3_2.jpg"],
+        mainImage: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400&h=400&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=400&fit=crop"],
         isActive: true
       }
     ];
@@ -143,8 +143,8 @@ app.get("/seed-data", async (req, res) => {
     // Seed banners
     const banners = [
       {
-        desktopImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000010/clear-glass/banner1_desktop.jpg",
-        mobileImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000010/clear-glass/banner1_mobile.jpg",
+        desktopImage: "https://images.unsplash.com/photo-1611426182858-430dbf3ee7b8?w=1200&h=400&fit=crop",
+        mobileImage: "https://images.unsplash.com/photo-1611426182858-430dbf3ee7b8?w=400&h=600&fit=crop",
         desktopFit: "cover",
         desktopPosition: "center",
         mobileFit: "cover",
@@ -152,8 +152,8 @@ app.get("/seed-data", async (req, res) => {
         isActive: true
       },
       {
-        desktopImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000011/clear-glass/banner2_desktop.jpg",
-        mobileImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000011/clear-glass/banner2_mobile.jpg",
+        desktopImage: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=1200&h=400&fit=crop",
+        mobileImage: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&h=600&fit=crop",
         desktopFit: "cover",
         desktopPosition: "center",
         mobileFit: "cover",
