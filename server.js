@@ -102,6 +102,7 @@ app.get("/seed-data", async (req, res) => {
         description: "Premium quality transparent glass set with perfect clarity and finish. Ideal for everyday use.",
         mrpPrice: 1500,
         offerAmount: 300,
+        sellingPrice: 1200,
         totalStock: 50,
         mainImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000000/clear-glass/glass1.jpg",
         gallery: ["https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000000/clear-glass/glass1_2.jpg"],
@@ -113,6 +114,7 @@ app.get("/seed-data", async (req, res) => {
         description: "Elegant crystal clear water glasses with modern design. Perfect for dining and entertaining.",
         mrpPrice: 2000,
         offerAmount: 400,
+        sellingPrice: 1600,
         totalStock: 40,
         mainImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000001/clear-glass/glass2.jpg",
         gallery: ["https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000001/clear-glass/glass2_2.jpg"],
@@ -124,6 +126,7 @@ app.get("/seed-data", async (req, res) => {
         description: "Durable and stylish juice glass collection. Available in various sizes and colors.",
         mrpPrice: 1200,
         offerAmount: 200,
+        sellingPrice: 1000,
         totalStock: 60,
         mainImage: "https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000002/clear-glass/glass3.jpg",
         gallery: ["https://res.cloudinary.com/dqzajyxfn/image/upload/v1622000002/clear-glass/glass3_2.jpg"],
@@ -131,7 +134,7 @@ app.get("/seed-data", async (req, res) => {
       }
     ];
     
-    await Product.insertMany(products);
+    const createdProducts = await Product.insertMany(products);
     console.log('✅ Products seeded successfully');
     
     // Delete all existing banners
@@ -159,15 +162,15 @@ app.get("/seed-data", async (req, res) => {
       }
     ];
     
-    await Banner.insertMany(banners);
+    const createdBanners = await Banner.insertMany(banners);
     console.log('✅ Banners seeded successfully');
     
     res.json({
       success: true,
       message: "Data seeded successfully",
       data: {
-        productsCreated: products.length,
-        bannersCreated: banners.length
+        productsCreated: createdProducts.length,
+        bannersCreated: createdBanners.length
       }
     });
   } catch (error) {
@@ -226,6 +229,11 @@ app.use("/api/banner", require("./routes/api/banner"));
 
 // Error handling
 app.use((err, req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Cache-Control, Pragma');
+  
   console.error("Error:", err);
   res.status(err.status || 500).json({
     error: err.message || "Internal server error"
