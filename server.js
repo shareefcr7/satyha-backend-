@@ -36,6 +36,46 @@ app.get("/", (req, res) => {
   res.json({ status: "Server running" });
 });
 
+// Seed admin endpoint (for initial setup)
+app.get("/seed-admin", async (req, res) => {
+  try {
+    const User = require('./models/user');
+    const { ROLES } = require('./constants');
+    
+    const adminEmail = 'admin@clearglass.com';
+    const adminPassword = 'admin123';
+    
+    const existingAdmin = await User.findOne({ email: adminEmail });
+    
+    if (existingAdmin) {
+      return res.json({
+        success: true,
+        message: "Admin already exists",
+        credentials: { email: adminEmail, password: adminPassword }
+      });
+    }
+    
+    const adminUser = new User({
+      email: adminEmail,
+      password: adminPassword,
+      firstName: 'ClearGlass',
+      lastName: 'Admin',
+      role: ROLES.Admin
+    });
+    
+    await adminUser.save();
+    
+    res.json({
+      success: true,
+      message: "Admin created successfully",
+      credentials: { email: adminEmail, password: adminPassword }
+    });
+  } catch (error) {
+    console.error('Seed admin error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // MongoDB Connection
 mongoose
   .connect(process.env.MONGODB_URI, {
