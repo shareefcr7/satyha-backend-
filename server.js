@@ -7,14 +7,27 @@ const passport = require('passport');
 const app = express();
 
 // CORS Configuration
-app.use(cors({
+const corsOptions = {
   origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3001",
     "http://localhost:5173",
-    "https://clearglass.vercel.app"
+    "https://clearglass.vercel.app",
+    "https://www.clearglass.vercel.app",
+    "https://sathya-frontend.vercel.app",
+    "https://clear-glass-frontend.vercel.app",
+    "https://clear-glass-frontend-lfez.vercel.app"
   ],
-  credentials: true
-}));
-app.options('*', cors());
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Middleware
 app.use(express.json({ limit: '50mb' }));
