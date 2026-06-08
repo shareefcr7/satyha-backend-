@@ -6,34 +6,15 @@ const passport = require('passport');
 
 const app = express();
 
-// CORS Configuration - Simple and Reliable
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allowed origins
-    const allowedOrigins = [
-      'http://localhost:3000',
-      'http://localhost:3001',
-      'http://127.0.0.1:3000',
-      'http://127.0.0.1:3001',
-      'https://satyha-frontend.vercel.app',
-      'https://satyha-admin.vercel.app',
-    ];
-
-    // Allow if origin is in list or no origin (like mobile apps)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('CORS policy violation'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+// CORS Configuration
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://clearglass.vercel.app"
+  ],
+  credentials: true
+}));
+app.options('*', cors());
 
 // Middleware
 app.use(express.json({ limit: '50mb' }));
