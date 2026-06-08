@@ -23,27 +23,23 @@ app.use(
 // ✅ Enhanced CORS Configuration
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = [
-      'http://localhost:3000',
-      'http://localhost:3001',
-      'http://localhost:5173',
-      'http://127.0.0.1:3000',
-      'https://clearglass.vercel.app',
-      'https://www.clearglass.vercel.app',
-      'https://sathya-frontend.vercel.app',
-      'https://clear-glass-frontend.vercel.app',
-      'https://clear-glass-frontend-lfez.vercel.app',
-      'https://lux-varo-admin.vercel.app',
-      'https://lux-varo-user.vercel.app',
-      'https://lexvaro-admin.vercel.app',
-      'https://lexvaro-user.vercel.app',
-      // Production domains
-      'https://admin.lexvaro.in',
-      'https://shop.lexvaro.in',
-      'https://api.lexvaro.in',
-      'https://www.lexvaro.in',
-      'https://lexvaro.in'
-    ];
+   const allowedOrigins = [
+  // Local Development
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:5173',
+  'http://127.0.0.1:3000',
+
+  // Vercel Deployments
+  'https://clearglass.vercel.app',
+  'https://sathya-frontend.vercel.app',
+  'https://clear-glass-frontend.vercel.app',
+  'https://clear-glass-frontend-lfez.vercel.app',
+
+  // Custom Domain
+  'https://clearglass.shop',
+  'https://www.clearglass.shop'
+];
 
     // Allow requests with no origin (mobile apps, Postman, server-to-server)
     if (!origin) return callback(null, true);
@@ -68,24 +64,18 @@ app.options('*', cors(corsOptions)); // Handle preflight requests
 app.use((req, res, next) => {
   const origin = req.get('origin');
   const allowed = [
-    'http://localhost:3000',
+     'http://localhost:3000',
     'http://localhost:3001',
     'http://localhost:5173',
     'http://127.0.0.1:3000',
+
     'https://clearglass.vercel.app',
-    'https://www.clearglass.vercel.app',
     'https://sathya-frontend.vercel.app',
     'https://clear-glass-frontend.vercel.app',
     'https://clear-glass-frontend-lfez.vercel.app',
-    'https://lux-varo-admin.vercel.app',
-    'https://lux-varo-user.vercel.app',
-    'https://lexvaro-admin.vercel.app',
-    'https://lexvaro-user.vercel.app',
-    'https://admin.lexvaro.in',
-    'https://shop.lexvaro.in',
-    'https://api.lexvaro.in',
-    'https://www.lexvaro.in',
-    'https://lexvaro.in'
+
+    'https://clearglass.shop',
+    'https://www.clearglass.shop'
   ];
 
   if (origin && allowed.includes(origin)) {
