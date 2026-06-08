@@ -9,17 +9,21 @@ const app = express();
 // CORS Configuration
 const corsOptions = {
   origin: [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:3001",
-    "http://localhost:5173",
-    "https://clearglass.vercel.app",
-    "https://www.clearglass.vercel.app",
-    "https://sathya-frontend.vercel.app",
-    "https://clear-glass-frontend.vercel.app",
-    "https://clear-glass-frontend-lfez.vercel.app"
-  ],
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "http://127.0.0.1:3000",
+  "http://127.0.0.1:3001",
+  "http://localhost:5173",
+
+  "https://clearglass.vercel.app",
+  "https://www.clearglass.vercel.app",
+  "https://sathya-frontend.vercel.app",
+  "https://clear-glass-frontend.vercel.app",
+  "https://clear-glass-frontend-lfez.vercel.app",
+
+  "https://clearglass.shop",
+  "https://www.clearglass.shop"
+],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
